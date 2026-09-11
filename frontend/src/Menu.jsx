@@ -1,3 +1,4 @@
+import { API_URL } from './config'
 import { useState, useEffect } from 'react';
 import './Menu.css';
 
@@ -14,7 +15,7 @@ function Menu({
   const [ouverts, setOuverts] = useState({}); // { recetteId: true/false }
 
   useEffect(() => {
-    fetch('http://localhost:3000/recettes')
+    fetch(`${API_URL}/recettes`)
       .then((reponse) => reponse.json())
       .then(async (donnees) => {
         setRecettes(donnees);
@@ -22,7 +23,7 @@ function Menu({
         const map = {};
         for (const recette of donnees) {
           const reponseResume = await fetch(
-            `http://localhost:3000/recettes/${recette.id}/ingredients-resume`
+            `${API_URL}/recettes/${recette.id}/ingredients-resume`
           );
           const resume = await reponseResume.json();
           const enfants = resume

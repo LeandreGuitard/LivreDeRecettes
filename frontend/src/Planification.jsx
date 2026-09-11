@@ -1,3 +1,4 @@
+import { API_URL } from './config'
 import { useState, useEffect } from 'react';
 import './Planification.css';
 
@@ -40,13 +41,13 @@ function Planification() {
   const [planningOuvertId, setPlanningOuvertId] = useState(null);
 
   const chargerPlanningsEnregistres = () => {
-    fetch('http://localhost:3000/plannings')
+    fetch(`${API_URL}/plannings`)
       .then((r) => r.json())
       .then(setPlanningsEnregistres);
   };
 
   useEffect(() => {
-    fetch('http://localhost:3000/recettes')
+    fetch(`${API_URL}/recettes`)
       .then((r) => r.json())
       .then(setRecettesDisponibles);
 
@@ -88,7 +89,7 @@ function Planification() {
     recettesPourCourses
   ) => {
     const reponseCalendrier = await fetch(
-      `http://localhost:3000/plannings/${planningId}/calendrier`
+      `${API_URL}/plannings/${planningId}/calendrier`
     );
     const donnees = await reponseCalendrier.json();
     setCalendrier(donnees);
@@ -96,7 +97,7 @@ function Planification() {
     const cumul = {}; // clé = "nom|unite"
     for (const r of recettesPourCourses) {
       const reponse = await fetch(
-        `http://localhost:3000/recettes/${r.recette_id}/ingredients-agreges?portions=${r.portions_souhaitees}`
+        `${API_URL}/recettes/${r.recette_id}/ingredients-agreges?portions=${r.portions_souhaitees}`
       );
       const ingredients = await reponse.json();
 
@@ -125,7 +126,7 @@ function Planification() {
     setListeCourses(null);
     setPlanningOuvertId(null);
 
-    const reponseCreation = await fetch('http://localhost:3000/plannings', {
+    const reponseCreation = await fetch(`${API_URL}/plannings`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -152,7 +153,7 @@ function Planification() {
     setListeCourses(null);
 
     const planning = await fetch(
-      `http://localhost:3000/plannings/${planningId}`
+      `${API_URL}/plannings/${planningId}`
     ).then((r) => r.json());
 
     setDateCible(versDatetimeLocal(planning.date_cible));
@@ -168,7 +169,7 @@ function Planification() {
     e.stopPropagation();
     if (!window.confirm('Supprimer ce repas enregistré ?')) return;
 
-    await fetch(`http://localhost:3000/plannings/${planningId}`, {
+    await fetch(`${API_URL}/plannings/${planningId}`, {
       method: 'DELETE',
     });
     if (planningOuvertId === planningId) {

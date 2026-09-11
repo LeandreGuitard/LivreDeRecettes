@@ -1,3 +1,4 @@
+import { API_URL } from './config'
 import { useState, useEffect } from 'react';
 import './Profil.css';
 
@@ -6,7 +7,7 @@ function Profil({ profilId }) {
   const [toutesRessources, setToutesRessources] = useState([]);
 
   const chargerProfil = () => {
-    fetch(`http://localhost:3000/profils/${profilId}`)
+    fetch(`${API_URL}/profils/${profilId}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setProfil(donnees));
   };
@@ -14,7 +15,7 @@ function Profil({ profilId }) {
   useEffect(() => {
     chargerProfil();
 
-    fetch('http://localhost:3000/ressources')
+    fetch(`${API_URL}/ressources`)
       .then((reponse) => reponse.json())
       .then((donnees) => setToutesRessources(donnees));
   }, [profilId]);
@@ -22,7 +23,7 @@ function Profil({ profilId }) {
   const modifierQuantite = async (ressourceId, nouvelleQuantite) => {
     if (nouvelleQuantite < 1) return;
     await fetch(
-      `http://localhost:3000/profils/${profilId}/ressources/${ressourceId}`,
+      `${API_URL}/profils/${profilId}/ressources/${ressourceId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -34,7 +35,7 @@ function Profil({ profilId }) {
 
   const supprimerRessource = async (ressourceId) => {
     await fetch(
-      `http://localhost:3000/profils/${profilId}/ressources/${ressourceId}`,
+      `${API_URL}/profils/${profilId}/ressources/${ressourceId}`,
       { method: 'DELETE' }
     );
     chargerProfil();
@@ -42,7 +43,7 @@ function Profil({ profilId }) {
 
   const ajouterRessource = async (ressourceId) => {
     if (!ressourceId) return;
-    await fetch(`http://localhost:3000/profils/${profilId}/ressources`, {
+    await fetch(`${API_URL}/profils/${profilId}/ressources`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ressource_id: Number(ressourceId), quantite: 1 }),
