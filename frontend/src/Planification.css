@@ -1,0 +1,193 @@
+.planification {
+  max-width: 650px;
+}
+
+.planification hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 16px 0;
+}
+
+.planification label {
+  font-size: 12px;
+  color: #888;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.entete-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.liste-recettes-choisies {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.ligne-recette-choisie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.controles-recette-choisie {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.label-portions {
+  margin: 0;
+}
+
+.controles-recette-choisie input {
+  width: 50px;
+}
+
+.controles-recette-choisie button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.bouton-principal {
+  background-color: #2952cc;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bouton-principal:disabled {
+  background-color: #aab8e0;
+  cursor: not-allowed;
+}
+
+.calendrier {
+  display: flex;
+  flex-direction: column;
+}
+
+.ligne-calendrier {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.date-calendrier {
+  min-width: 140px;
+  font-weight: 500;
+  color: #333;
+}
+
+.badge-recette {
+  color: white;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.description-calendrier {
+  flex: 1;
+  min-width: 150px;
+}
+
+.ressources-calendrier {
+  font-size: 12px;
+  color: #888;
+}
+
+.message-vide {
+  color: #888;
+}
+
+.duree-calendrier {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.aide-planification {
+  font-size: 12px;
+  color: #999;
+  margin: 0 0 12px;
+}
+
+.liste-courses {
+  display: flex;
+  flex-direction: column;
+}
+
+.ligne-course {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.quantite-course {
+  color: #888;
+}
+
+.liste-plannings-enregistres {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.ligne-planning-enregistre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.ligne-planning-enregistre:hover {
+  background-color: #f0f0f0;
+}
+
+.ligne-planning-enregistre.actif {
+  border-color: #2952cc;
+  background-color: #eef1fb;
+}
+
+.date-planning-enregistre {
+  font-weight: 500;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+.recettes-planning-enregistre {
+  font-size: 13px;
+  color: #666;
+}
+
+.ligne-planning-enregistre .bouton-supprimer {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

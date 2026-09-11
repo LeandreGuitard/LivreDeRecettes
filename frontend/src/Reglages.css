@@ -1,0 +1,91 @@
+.reglages hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 16px 0 24px;
+}
+
+.grille-reglages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.section-liste h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.form-ajout {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.form-ajout input {
+  flex: 1;
+}
+
+.ligne-element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+.section-ingredients {
+  max-width: 500px;
+}
+
+.form-ingredient {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.actions-form-ingredient {
+  display: flex;
+  gap: 8px;
+}
+
+.liste-ingredients-gestion {
+  display: flex;
+  flex-direction: column;
+}
+
+.ligne-ingredient-gestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.info-ingredient {
+  display: flex;
+  flex-direction: column;
+}
+
+.nom-ingredient {
+  font-size: 14px;
+}
+
+.detail-ingredient {
+  font-size: 12px;
+  color: #888;
+}
+
+.actions-ingredient {
+  display: flex;
+  gap: 4px;
+}
+
+.actions-ingredient button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

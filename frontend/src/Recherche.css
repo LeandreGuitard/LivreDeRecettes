@@ -1,0 +1,33 @@
+.barre-recherche {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 16px 0;
+  padding: 10px 12px;
+}
+
+.filtres {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.resultats-recherche {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ligne-resultat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #f0f0f0;
+}
+
+.ligne-resultat:hover {
+  background-color: #f7f7f7;
+}

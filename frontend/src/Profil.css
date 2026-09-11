@@ -1,0 +1,46 @@
+.profil {
+  max-width: 500px;
+}
+
+.profil hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 16px 0;
+}
+
+.entete-equipement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ligne-ressource {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.controles-quantite {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controles-quantite button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bouton-supprimer {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 8px;
+}

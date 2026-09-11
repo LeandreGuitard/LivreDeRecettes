@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mes Recettes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="carte-recette">
+      <!--<img src="ramen.jpg" alt="Photo du plat de ramen" />-->
+      <h1 id="titre">Chargement...</h1>
+      <p id="cout"></p>
+      <ul id="ingredients">
+        <li>Bouillon</li>
+        <li>Nouilles</li>
+      </ul>
+      <button id="btn-recette">Voir la recette</button>
+      <p id="message"></p>
+      <button id="btn-planifier">Planifier cette recette</button>
+      <p id="statut"></p>
+    </div>
+
+    <h2>Ajouter une recette</h2>
+    <form id="form-recette">
+      <input
+        type="text"
+        id="input-nom"
+        placeholder="Nom de la recette"
+        required
+      />
+      <input
+        type="number"
+        id="input-portions"
+        placeholder="Portions"
+        required
+      />
+      <input
+        type="number"
+        id="input-cout"
+        placeholder="Coût estimé"
+        step="0.01"
+        required
+      />
+      <button type="submit">Créer</button>
+    </form>
+
+    <div id="liste-recettes"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
