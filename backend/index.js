@@ -1261,9 +1261,11 @@ app.get('/plannings/:id/calendrier', (req, res) => {
 
 // ---------- DEMARRAGE ----------
 
+const PORT = process.env.PORT || 3000;
+
 async function demarrer() {
   await initDB();
-  app.listen(3000, () => console.log('Serveur lancé sur le port 3000'));
+  app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
 }
 
 demarrer();
