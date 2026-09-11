@@ -1,7 +1,7 @@
 .menu {
   width: 220px;
   height: 100vh;
-  background-color: #dcdcdc;
+  background-color: var(--couleur-menu-fond);
   padding: 16px;
   box-sizing: border-box;
   display: flex;
@@ -17,10 +17,11 @@
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
+  color : var(--couleur-texte);
 }
 
 .menu button:hover {
-  background-color: #c8c8c8;
+  background-color: var(--couleur-menu-survol);
 }
 
 .menu hr {
@@ -39,7 +40,7 @@
 
 .titre-type {
   font-size: 11px;
-  color: #888;
+  color: var(--couleur-texte-attenue);
   text-transform: uppercase;
   margin: 4px 0;
 }
@@ -52,12 +53,12 @@
 }
 
 .item-recette:hover {
-  background-color: #c8c8c8;
+  background-color: var(--couleur-menu-survol);
 }
 
 .item-sous-recette {
   padding-left: 24px;
-  color: #666;
+  color: var(--couleur-texte-secondaire);
   font-size: 13px;
 }
 
@@ -65,5 +66,5 @@
   display: inline-block;
   width: 14px;
   font-size: 10px;
-  color: #888;
+  color: var(--couleur-texte-attenue);
 }

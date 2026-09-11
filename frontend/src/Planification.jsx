@@ -28,7 +28,7 @@ function versDatetimeLocal(iso) {
   )}:${pad(d.getMinutes())}`;
 }
 
-const COULEURS = ['#2952cc', '#2f6b3f', '#b8482a', '#7a5ea8', '#c08a2e'];
+const COULEURS = ['var(--couleur-accent)', 'var(--couleur-succes)', '#b8482a', '#7a5ea8', '#c08a2e'];
 
 function Planification() {
   const [dateCible, setDateCible] = useState('');

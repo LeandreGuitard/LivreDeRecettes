@@ -6,7 +6,7 @@
 
 .menu {
   width: 220px;
-  background-color: #dcdcdc;
+  background-color: var(--couleur-bordure-forte);
   padding: 16px;
   box-sizing: border-box;
 }

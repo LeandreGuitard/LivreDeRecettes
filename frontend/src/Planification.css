@@ -4,13 +4,13 @@
 
 .planification hr {
   border: none;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--couleur-bordure);
   margin: 16px 0;
 }
 
 .planification label {
   font-size: 12px;
-  color: #888;
+  color: var(--couleur-texte-attenue);
   display: block;
   margin-bottom: 4px;
 }
@@ -35,7 +35,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background-color: #f7f7f7;
+  background-color: var(--couleur-surface);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -62,8 +62,8 @@
 }
 
 .bouton-principal {
-  background-color: #2952cc;
-  color: white;
+  background-color: var(--couleur-accent);
+  color: var(--couleur-fond);
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
@@ -86,7 +86,7 @@
   align-items: center;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--couleur-bordure);
   font-size: 13px;
   flex-wrap: wrap;
 }
@@ -98,11 +98,11 @@
 }
 
 .badge-recette {
-  color: white;
+  color: var(--couleur-fond);
   padding: 2px 8px;
   border-radius: 6px;
   font-size: 11px;
-  white-space: nowrap;
+  var(--couleur-fond)-space: nowrap;
 }
 
 .description-calendrier {
@@ -112,22 +112,22 @@
 
 .ressources-calendrier {
   font-size: 12px;
-  color: #888;
+  color: var(--couleur-texte-attenue);
 }
 
 .message-vide {
-  color: #888;
+  color: var(--couleur-texte-attenue);
 }
 
 .duree-calendrier {
   font-size: 12px;
-  color: #888;
-  white-space: nowrap;
+  color: var(--couleur-texte-attenue);
+  var(--couleur-fond)-space: nowrap;
 }
 
 .aide-planification {
   font-size: 12px;
-  color: #999;
+  color: var(--couleur-texte-attenue);
   margin: 0 0 12px;
 }
 
@@ -140,12 +140,12 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--couleur-bordure);
   font-size: 14px;
 }
 
 .quantite-course {
-  color: #888;
+  color: var(--couleur-texte-attenue);
 }
 
 .liste-plannings-enregistres {
@@ -160,18 +160,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background-color: #f7f7f7;
+  background-color: var(--couleur-surface);
   border-radius: 8px;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
 .ligne-planning-enregistre:hover {
-  background-color: #f0f0f0;
+  background-color: var(--couleur-bordure);
 }
 
 .ligne-planning-enregistre.actif {
-  border-color: #2952cc;
+  border-color: var(--couleur-accent);
   background-color: #eef1fb;
 }
 
@@ -183,7 +183,7 @@
 
 .recettes-planning-enregistre {
   font-size: 13px;
-  color: #666;
+  color: var(--couleur-texte-secondaire);
 }
 
 .ligne-planning-enregistre .bouton-supprimer {

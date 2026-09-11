@@ -7,13 +7,13 @@
 
 .form-recette label {
   font-size: 12px;
-  color: #888;
+  color: var(--couleur-texte-attenue);
   margin-top: 10px;
 }
 
 .form-recette hr {
   border: none;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--couleur-bordure);
   margin: 16px 0;
 }
 
@@ -34,15 +34,16 @@
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 6px;
-  border: 1px solid #ddd;
-  background: white;
+  border: 1px solid var(--couleur-bordure);
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
   cursor: pointer;
 }
 
 .badge-choix.actif {
-  background-color: #2952cc;
-  color: white;
-  border-color: #2952cc;
+  background-color: var(--couleur-accent);
+  color: var(--couleur-fond);
+  border-color: var(--couleur-accent);
 }
 
 .ligne-composant {
@@ -66,8 +67,8 @@
 }
 
 .bouton-principal {
-  background-color: #2952cc;
-  color: white;
+  background-color: var(--couleur-accent);
+  color: var(--couleur-fond);
   padding: 10px;
   border: none;
   border-radius: 8px;
@@ -77,7 +78,7 @@
 
 .aide {
   font-size: 12px;
-  color: #999;
+  color: var(--couleur-texte-attenue);
   margin: 4px 0 8px;
 }
 
@@ -138,8 +139,8 @@
 }
 
 .bouton-danger {
-  color: #c0392b;
-  border-color: #e6b3ac;
+  color: var(--couleur-danger);
+  border-color: var(--couleur-danger-bordure);
 }
 
 .bloc-composants-etape {

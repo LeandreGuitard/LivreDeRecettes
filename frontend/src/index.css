@@ -4,115 +4,83 @@ body,
   height: 100%;
   margin: 0;
 }
-
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
-    rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --couleur-fond: #ffffff;
+  --couleur-surface: #f7f7f7;
+  --couleur-surface-alt: #ececec;
+  --couleur-bordure: #f0f0f0;
+  --couleur-bordure-forte: #dcdcdc;
+  --couleur-texte: #1a1a1a;
+  --couleur-texte-secondaire: #555555;
+  --couleur-texte-attenue: #999999;
+  --couleur-accent: #2952cc;
+  --couleur-accent-texte: #ffffff;
+  --couleur-accent-fond-clair: #e0e9ff;
+  --couleur-danger: #c0392b;
+  --couleur-danger-bordure: #e6b3ac;
+  --couleur-succes: #2f6b3f;
+  --couleur-menu-fond: #dcdcdc;
+  --couleur-menu-survol: #c8c8c8;
+  --couleur-ombre: rgba(0, 0, 0, 0.15);
+  --couleur-ressource-fond: #f0ece0;
+  --couleur-ressource-texte: #7a6a45;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
-      rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --couleur-fond: #1c1c1e;
+    --couleur-surface: #2a2a2d;
+    --couleur-surface-alt: #333336;
+    --couleur-bordure: #3a3a3d;
+    --couleur-bordure-forte: #46464a;
+    --couleur-texte: #eaeaea;
+    --couleur-texte-secondaire: #b5b5b8;
+    --couleur-texte-attenue: #8a8a8d;
+    --couleur-accent: #6d8dff;
+    --couleur-accent-texte: #0d1117;
+    --couleur-accent-fond-clair: #26305c;
+    --couleur-danger: #ff6b5b;
+    --couleur-danger-bordure: #6b332c;
+    --couleur-succes: #4caf6a;
+    --couleur-menu-fond: #232326;
+    --couleur-menu-survol: #2d2d31;
+    --couleur-ombre: rgba(0, 0, 0, 0.5);
+    --couleur-ressource-fond: #3d3627;
+    --couleur-ressource-texte: #d9c9a3;
   }
 }
 
 body {
-  margin: 0;
+  background-color: var(--couleur-fond);
+  color: var(--couleur-texte);
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+input,
+select,
+textarea {
+  background-color: var(--couleur-surface);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--couleur-texte);
+  font-family: inherit;
+  font-size: 14px;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--couleur-accent);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+button {
+  background-color: var(--couleur-surface);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: var(--couleur-texte);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
 }
