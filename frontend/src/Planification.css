@@ -102,7 +102,7 @@
   padding: 2px 8px;
   border-radius: 6px;
   font-size: 11px;
-  var(--couleur-fond)-space: nowrap;
+  white-space: nowrap;
 }
 
 .description-calendrier {
@@ -122,7 +122,7 @@
 .duree-calendrier {
   font-size: 12px;
   color: var(--couleur-texte-attenue);
-  var(--couleur-fond)-space: nowrap;
+  white-space: nowrap;
 }
 
 .aide-planification {
