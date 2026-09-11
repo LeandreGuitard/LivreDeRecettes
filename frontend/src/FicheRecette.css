@@ -140,7 +140,7 @@
   text-align: left;
   font-size: 13px;
   cursor: pointer;
-  var(--couleur-fond)-space: nowrap;
+  white-space: nowrap;
 }
 
 .menu-contextuel button:hover {
