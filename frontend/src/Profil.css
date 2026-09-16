@@ -4,7 +4,7 @@
 
 .profil hr {
   border: none;
-  border-top: 1px solid var(--couleur-bordure);
+  border-top: 1px solid #e0e0e0;
   margin: 16px 0;
 }
 
@@ -20,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid var(--couleur-bordure);
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .controles-quantite {
@@ -32,9 +32,8 @@
 .controles-quantite button {
   width: 26px;
   height: 26px;
-  border: 1px solid var(--couleur-bordure);
-  background: var(--couleur-fond);
-  color: var(--couleur-texte);
+  border: 1px solid #ddd;
+  background: white;
   border-radius: 6px;
   cursor: pointer;
 }

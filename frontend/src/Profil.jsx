@@ -1,13 +1,14 @@
 import { API_URL } from './config'
 import { useState, useEffect } from 'react';
 import './Profil.css';
+import { Trash2, Pencil, Plus, Minus, X, Download } from 'lucide-react';
 
 function Profil({ profilId }) {
   const [profil, setProfil] = useState(null);
   const [toutesRessources, setToutesRessources] = useState([]);
 
   const chargerProfil = () => {
-    fetch(`${API_URL}/profils/${profilId}`)
+    fetch(`http://localhost:3000/profils/${profilId}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setProfil(donnees));
   };
@@ -15,7 +16,7 @@ function Profil({ profilId }) {
   useEffect(() => {
     chargerProfil();
 
-    fetch(`${API_URL}/ressources`)
+    fetch('http://localhost:3000/ressources')
       .then((reponse) => reponse.json())
       .then((donnees) => setToutesRessources(donnees));
   }, [profilId]);
@@ -23,7 +24,7 @@ function Profil({ profilId }) {
   const modifierQuantite = async (ressourceId, nouvelleQuantite) => {
     if (nouvelleQuantite < 1) return;
     await fetch(
-      `${API_URL}/profils/${profilId}/ressources/${ressourceId}`,
+      `http://localhost:3000/profils/${profilId}/ressources/${ressourceId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -35,7 +36,7 @@ function Profil({ profilId }) {
 
   const supprimerRessource = async (ressourceId) => {
     await fetch(
-      `${API_URL}/profils/${profilId}/ressources/${ressourceId}`,
+      `http://localhost:3000/profils/${profilId}/ressources/${ressourceId}`,
       { method: 'DELETE' }
     );
     chargerProfil();
@@ -43,7 +44,7 @@ function Profil({ profilId }) {
 
   const ajouterRessource = async (ressourceId) => {
     if (!ressourceId) return;
-    await fetch(`${API_URL}/profils/${profilId}/ressources`, {
+    await fetch(`http://localhost:3000/profils/${profilId}/ressources`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ressource_id: Number(ressourceId), quantite: 1 }),
@@ -88,7 +89,7 @@ function Profil({ profilId }) {
                   )
                 }
               >
-                -
+                <Minus size={14} strokeWidth={2} />
               </button>
               <span>{ressource.quantite_disponible}</span>
               <button
@@ -99,13 +100,13 @@ function Profil({ profilId }) {
                   )
                 }
               >
-                +
+                <Plus size={14} strokeWidth={2} />
               </button>
               <button
                 className="bouton-supprimer"
                 onClick={() => supprimerRessource(ressource.id)}
               >
-                🗑️
+                <Trash2 size={14} strokeWidth={2} />
               </button>
             </div>
           </div>

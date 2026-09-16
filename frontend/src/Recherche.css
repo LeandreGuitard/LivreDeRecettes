@@ -25,9 +25,9 @@
   padding: 10px 12px;
   border-radius: 8px;
   cursor: pointer;
-  border: 1px solid var(--couleur-bordure);
+  border: 1px solid #f0f0f0;
 }
 
 .ligne-resultat:hover {
-  background-color: var(--couleur-surface);
+  background-color: #f7f7f7;
 }

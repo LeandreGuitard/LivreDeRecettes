@@ -1,12 +1,13 @@
 import { API_URL } from './config'
 import { useState, useEffect } from 'react';
+import { Trash2, Pencil, Plus, Minus, X, Download } from 'lucide-react';
 
 function ListeSimple({ titre, endpoint }) {
   const [elements, setElements] = useState([]);
   const [nouveauNom, setNouveauNom] = useState('');
 
   const charger = () => {
-    fetch(`${API_URL}/${endpoint}`)
+    fetch(`http://localhost:3000/${endpoint}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setElements(donnees));
   };
@@ -19,7 +20,7 @@ function ListeSimple({ titre, endpoint }) {
     e.preventDefault();
     if (!nouveauNom.trim()) return;
 
-    await fetch(`${API_URL}/${endpoint}`, {
+    await fetch(`http://localhost:3000/${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nom: nouveauNom }),
@@ -29,7 +30,7 @@ function ListeSimple({ titre, endpoint }) {
   };
 
   const supprimer = async (id) => {
-    await fetch(`${API_URL}/${endpoint}/${id}`, {
+    await fetch(`http://localhost:3000/${endpoint}/${id}`, {
       method: 'DELETE',
     });
     charger();
@@ -57,7 +58,7 @@ function ListeSimple({ titre, endpoint }) {
               className="bouton-supprimer"
               onClick={() => supprimer(el.id)}
             >
-              🗑️
+              <Trash2 size={14} strokeWidth={2} />
             </button>
           </div>
         ))}

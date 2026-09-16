@@ -17,7 +17,7 @@
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  color : var(--couleur-texte);
+  color: var(--couleur-texte);
 }
 
 .menu button:hover {

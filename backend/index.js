@@ -1,11 +1,27 @@
 const express = require('express');
 const cors = require('cors');
 const { initDB, getDB, sauvegarder } = require('./db');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+if (!fs.existsSync('public/uploads')) {
+  fs.mkdirSync('public/uploads', { recursive: true });
+}
+
+const stockagePhotos = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/uploads'),
+  filename: (req, file, cb) => {
+    const extension = path.extname(file.originalname);
+    cb(null, `recette-${req.params.id}-${Date.now()}${extension}`);
+  },
+});
+const upload = multer({ storage: stockagePhotos });
 
 // ---------- HELPERS PARTAGES (recettes, étapes, alternatives) ----------
 
@@ -108,7 +124,7 @@ function chargerComposantsEtape(db, etapeId) {
 app.get('/recettes', (req, res) => {
   const db = getDB();
   const resultat = db.exec(`
-    SELECT recettes.id, recettes.nom, recettes.portions_base, recettes.description,
+    SELECT recettes.id, recettes.nom, recettes.portions_base, recettes.description,recettes.photo_url,
            types_recette.nom AS type_nom
     FROM recettes
     JOIN types_recette ON recettes.type_id = types_recette.id
@@ -129,7 +145,7 @@ app.get('/recettes/:id', (req, res) => {
 
   const resultatRecette = db.exec(
     `
-    SELECT recettes.id, recettes.nom, recettes.type_id, recettes.portions_base, recettes.description,
+    SELECT recettes.id, recettes.nom, recettes.type_id, recettes.portions_base, recettes.description,recettes.photo_url,
            types_recette.nom AS type_nom
     FROM recettes
     JOIN types_recette ON recettes.type_id = types_recette.id
@@ -253,6 +269,17 @@ app.delete('/recettes/:id', (req, res) => {
   sauvegarder();
 
   res.status(204).send();
+});
+
+app.post('/recettes/:id/photo', upload.single('photo'), (req, res) => {
+  const db = getDB();
+  const id = req.params.id;
+  const photoUrl = `/uploads/${req.file.filename}`;
+
+  db.run('UPDATE recettes SET photo_url = ? WHERE id = ?', [photoUrl, id]);
+  sauvegarder();
+
+  res.json({ photo_url: photoUrl });
 });
 
 // ---------- CYCLES, CALCULS (coût / temps récursifs) ----------
@@ -589,20 +616,15 @@ app.post('/etapes/:id/composants', (req, res) => {
     req.body;
 
   if (!ingredient_id && !sous_recette_id) {
-    return res
-      .status(400)
-      .json({
-        erreur:
-          'Il faut fournir soit un ingredient_id, soit un sous_recette_id',
-      });
+    return res.status(400).json({
+      erreur: 'Il faut fournir soit un ingredient_id, soit un sous_recette_id',
+    });
   }
   if (ingredient_id && sous_recette_id) {
-    return res
-      .status(400)
-      .json({
-        erreur:
-          'Un composant ne peut pas être à la fois un ingrédient et une sous-recette',
-      });
+    return res.status(400).json({
+      erreur:
+        'Un composant ne peut pas être à la fois un ingrédient et une sous-recette',
+    });
   }
 
   if (sous_recette_id) {
@@ -1259,13 +1281,67 @@ app.get('/plannings/:id/calendrier', (req, res) => {
   res.json(calendrier);
 });
 
-// ---------- DEMARRAGE ----------
+// ---------- RECHERCHE ----------
 
-const PORT = process.env.PORT || 3000;
+app.get('/recherche/recettes', (req, res) => {
+  const db = getDB();
+  const { texte, type_id, tag_id, ingredient_id } = req.query;
+
+  let sql = `
+    SELECT DISTINCT recettes.id, recettes.nom, recettes.portions_base, recettes.description,
+           types_recette.nom AS type_nom
+    FROM recettes
+    JOIN types_recette ON recettes.type_id = types_recette.id
+  `;
+
+  const conditions = [];
+  const params = [];
+
+  if (tag_id) {
+    sql += ' JOIN recettes_tags ON recettes.id = recettes_tags.recette_id ';
+    conditions.push('recettes_tags.tag_id = ?');
+    params.push(tag_id);
+  }
+
+  if (ingredient_id) {
+    sql += `
+      JOIN etapes ON recettes.id = etapes.recette_id
+      JOIN etape_composants ON etapes.id = etape_composants.etape_id
+    `;
+    conditions.push('etape_composants.ingredient_id = ?');
+    params.push(ingredient_id);
+  }
+
+  if (texte) {
+    conditions.push('recettes.nom LIKE ?');
+    params.push(`%${texte}%`);
+  }
+
+  if (type_id) {
+    conditions.push('recettes.type_id = ?');
+    params.push(type_id);
+  }
+
+  if (conditions.length > 0) {
+    sql += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  const resultat = db.exec(sql, params);
+
+  if (resultat.length === 0) return res.json([]);
+
+  const colonnes = resultat[0].columns;
+  const recettes = resultat[0].values.map((v) =>
+    Object.fromEntries(colonnes.map((col, i) => [col, v[i]]))
+  );
+  res.json(recettes);
+});
+
+// ---------- DEMARRAGE ----------
 
 async function demarrer() {
   await initDB();
-  app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
+  app.listen(3000, () => console.log('Serveur lancé sur le port 3000'));
 }
 
 demarrer();

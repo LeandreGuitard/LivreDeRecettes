@@ -4,55 +4,120 @@ body,
   height: 100%;
   margin: 0;
 }
+
 :root {
-  --couleur-fond: #ffffff;
-  --couleur-surface: #f7f7f7;
-  --couleur-surface-alt: #ececec;
-  --couleur-bordure: #f0f0f0;
-  --couleur-bordure-forte: #dcdcdc;
-  --couleur-texte: #1a1a1a;
-  --couleur-texte-secondaire: #555555;
-  --couleur-texte-attenue: #999999;
-  --couleur-accent: #2952cc;
+  --police-titre: 'Fraunces', Georgia, serif;
+  --police-texte: 'Work Sans', -apple-system, sans-serif;
+
+  --rayon: 10px;
+  --rayon-petit: 6px;
+
+  --couleur-fond: #faf7f2;
+  --couleur-surface: #f1ebe0;
+  --couleur-surface-alt: #e8ddc9;
+  --couleur-bordure: #e3d9c8;
+  --couleur-bordure-forte: #d4c6ae;
+
+  --couleur-texte: #2b241c;
+  --couleur-texte-secondaire: #6b5f4e;
+  --couleur-texte-attenue: #9c8f7a;
+
+  --couleur-accent: #b8542f;
   --couleur-accent-texte: #ffffff;
-  --couleur-accent-fond-clair: #e0e9ff;
-  --couleur-danger: #c0392b;
-  --couleur-danger-bordure: #e6b3ac;
-  --couleur-succes: #2f6b3f;
-  --couleur-menu-fond: #dcdcdc;
-  --couleur-menu-survol: #c8c8c8;
-  --couleur-ombre: rgba(0, 0, 0, 0.15);
-  --couleur-ressource-fond: #f0ece0;
-  --couleur-ressource-texte: #7a6a45;
+  --couleur-accent-fond-clair: #f3ddd0;
+
+  --couleur-danger: #b3392a;
+  --couleur-danger-bordure: #e8c3ba;
+  --couleur-succes: #4f7a4a;
+
+  --couleur-menu-fond: #efe6d8;
+  --couleur-menu-survol: #e3d5bf;
+
+  --couleur-ressource-fond: #eadfc5;
+  --couleur-ressource-texte: #7a5f2e;
+
+  --couleur-ombre: rgba(60, 40, 20, 0.12);
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --couleur-fond: #1c1c1e;
-    --couleur-surface: #2a2a2d;
-    --couleur-surface-alt: #333336;
-    --couleur-bordure: #3a3a3d;
-    --couleur-bordure-forte: #46464a;
-    --couleur-texte: #eaeaea;
-    --couleur-texte-secondaire: #b5b5b8;
-    --couleur-texte-attenue: #8a8a8d;
-    --couleur-accent: #6d8dff;
-    --couleur-accent-texte: #0d1117;
-    --couleur-accent-fond-clair: #26305c;
-    --couleur-danger: #ff6b5b;
-    --couleur-danger-bordure: #6b332c;
-    --couleur-succes: #4caf6a;
-    --couleur-menu-fond: #232326;
-    --couleur-menu-survol: #2d2d31;
-    --couleur-ombre: rgba(0, 0, 0, 0.5);
-    --couleur-ressource-fond: #3d3627;
-    --couleur-ressource-texte: #d9c9a3;
+    --couleur-fond: #1e1a15;
+    --couleur-surface: #2a251e;
+    --couleur-surface-alt: #332c22;
+    --couleur-bordure: #3d3527;
+    --couleur-bordure-forte: #4a4130;
+
+    --couleur-texte: #f0e9dc;
+    --couleur-texte-secondaire: #c2b8a3;
+    --couleur-texte-attenue: #8f8571;
+
+    --couleur-accent: #e8825a;
+    --couleur-accent-texte: #1e1a15;
+    --couleur-accent-fond-clair: #4a2f22;
+
+    --couleur-danger: #ff8a70;
+    --couleur-danger-bordure: #5c3128;
+    --couleur-succes: #7cb56f;
+
+    --couleur-menu-fond: #241f19;
+    --couleur-menu-survol: #2f291f;
+
+    --couleur-ressource-fond: #443722;
+    --couleur-ressource-texte: #dcc78a;
+
+    --couleur-ombre: rgba(0, 0, 0, 0.55);
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
   }
 }
 
 body {
   background-color: var(--couleur-fond);
   color: var(--couleur-texte);
+  font-family: var(--police-texte);
+}
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--police-titre);
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
 }
 
 input,
@@ -60,10 +125,10 @@ select,
 textarea {
   background-color: var(--couleur-surface);
   border: 1px solid var(--couleur-bordure);
-  border-radius: 6px;
+  border-radius: var(--rayon-petit);
   padding: 7px 10px;
   color: var(--couleur-texte);
-  font-family: inherit;
+  font-family: var(--police-texte);
   font-size: 14px;
 }
 
@@ -75,12 +140,20 @@ textarea:focus {
 }
 
 button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background-color: var(--couleur-surface);
   border: 1px solid var(--couleur-bordure);
-  border-radius: 6px;
+  border-radius: var(--rayon-petit);
   padding: 6px 12px;
   color: var(--couleur-texte);
-  font-family: inherit;
+  font-family: var(--police-texte);
   font-size: 14px;
   cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+button:hover {
+  border-color: var(--couleur-bordure-forte);
 }

@@ -1,5 +1,6 @@
 import { API_URL } from './config'
 import { useState, useEffect } from 'react';
+import { Trash2, Pencil, Plus, Minus, X, Download } from 'lucide-react';
 
 function GestionIngredients() {
   const [ingredients, setIngredients] = useState([]);
@@ -12,14 +13,14 @@ function GestionIngredients() {
   const [lieuxSelectionnes, setLieuxSelectionnes] = useState([]);
 
   const charger = () => {
-    fetch(`${API_URL}/ingredients`)
+    fetch('http://localhost:3000/ingredients')
       .then((r) => r.json())
       .then(setIngredients);
   };
 
   useEffect(() => {
     charger();
-    fetch(`${API_URL}/lieux-achat`)
+    fetch('http://localhost:3000/lieux-achat')
       .then((r) => r.json())
       .then(setLieuxAchat);
   }, []);
@@ -60,13 +61,13 @@ function GestionIngredients() {
     };
 
     if (editingId) {
-      await fetch(`${API_URL}/ingredients/${editingId}`, {
+      await fetch(`http://localhost:3000/ingredients/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(corps),
       });
     } else {
-      await fetch(`${API_URL}/ingredients`, {
+      await fetch('http://localhost:3000/ingredients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(corps),
@@ -79,7 +80,7 @@ function GestionIngredients() {
 
   const supprimer = async (id) => {
     if (!window.confirm('Supprimer cet ingrédient ?')) return;
-    await fetch(`${API_URL}/ingredients/${id}`, {
+    await fetch(`http://localhost:3000/ingredients/${id}`, {
       method: 'DELETE',
     });
     charger();
@@ -147,12 +148,14 @@ function GestionIngredients() {
               </span>
             </div>
             <div className="actions-ingredient">
-              <button onClick={() => chargerPourEdition(ingredient)}>✏️</button>
+              <button onClick={() => chargerPourEdition(ingredient)}>
+                <Pencil size={14} strokeWidth={2} />
+              </button>
               <button
                 className="bouton-supprimer"
                 onClick={() => supprimer(ingredient.id)}
               >
-                🗑️
+                <Trash2 size={14} strokeWidth={2} />
               </button>
             </div>
           </div>

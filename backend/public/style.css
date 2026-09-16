@@ -1,7 +1,7 @@
 .carte-recette {
   width: 350px;
   padding: 16px;
-  border: 1px solid var(--couleur-bordure);
+  border: 1px solid #ddd;
   border-radius: 12px;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -20,12 +20,12 @@
 
 .carte-recette ul {
   padding-left: 18px;
-  color: var(--couleur-texte-secondaire);
+  color: #555;
 }
 
 .carte-recette button {
   background-color: #d85a30;
-  color: var(--couleur-fond);
+  color: white;
   border: 1px solid gray;
   padding: 8px 16px;
   border-radius: 6px;

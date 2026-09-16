@@ -4,14 +4,14 @@
 
 .fiche-recette hr {
   border: none;
-  border-top: 1px solid var(--couleur-bordure);
+  border-top: 1px solid #e0e0e0;
   margin: 16px 0;
 }
 
 .photo-placeholder {
   width: 100%;
   height: 140px;
-  background-color: var(--couleur-surface-alt);
+  background-color: #ececec;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
 }
 
 .description {
-  color: var(--couleur-texte-secondaire);
+  color: #555;
   font-size: 14px;
 }
 
@@ -35,12 +35,12 @@
   font-size: 12px;
   padding: 3px 10px;
   border-radius: 6px;
-  background-color: var(--couleur-surface-alt);
+  background-color: #ececec;
 }
 
 .badge-type {
-  background-color: var(--couleur-accent-fond-clair);
-  color: var(--couleur-accent);
+  background-color: #e0e9ff;
+  color: #2952cc;
 }
 
 .liste-ingredients {
@@ -52,12 +52,12 @@
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  border-bottom: 1px solid var(--couleur-bordure);
+  border-bottom: 1px solid #f0f0f0;
   font-size: 14px;
 }
 
 .quantite {
-  color: var(--couleur-texte-attenue);
+  color: #888;
 }
 
 .liste-etapes {
@@ -70,12 +70,12 @@
 
 .meta-etape {
   font-size: 12px;
-  color: var(--couleur-texte-attenue);
+  color: #888;
   margin: 2px 0 0;
 }
 
 .message-vide {
-  color: var(--couleur-texte-attenue);
+  color: #888;
 }
 
 .badges-ressources {
@@ -86,8 +86,8 @@
 }
 
 .badge-ressource {
-  background-color: var(--couleur-ressource-fond);
-  color: var(--couleur-ressource-texte);
+  background-color: #f0ece0;
+  color: #7a6a45;
 }
 
 .grille-metadonnees {
@@ -99,7 +99,7 @@
 
 .label-meta {
   font-size: 11px;
-  color: var(--couleur-texte-attenue);
+  color: #888;
   margin: 0 0 2px;
 }
 
@@ -126,8 +126,8 @@
 .menu-contextuel {
   position: fixed;
   z-index: 11;
-  background: var(--couleur-fond);
-  border: 1px solid var(--couleur-bordure);
+  background: white;
+  border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 4px;
@@ -144,7 +144,7 @@
 }
 
 .menu-contextuel button:hover {
-  background-color: var(--couleur-bordure);
+  background-color: #f0f0f0;
 }
 
 .toast-confirmation {
@@ -152,8 +152,8 @@
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--couleur-succes);
-  color: var(--couleur-fond);
+  background-color: #2f6b3f;
+  color: white;
   padding: 10px 18px;
   border-radius: 8px;
   font-size: 14px;
@@ -166,5 +166,26 @@
   padding: 0;
   margin: 6px 0 0;
   font-size: 12px;
-  color: var(--couleur-texte-secondaire);
+  color: #666;
+}
+.photo-placeholder {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.photo-recette {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.liste-etapes li {
+  border-left: 3px solid var(--couleur-bordure);
+  padding-left: 12px;
 }

@@ -1,7 +1,8 @@
-import { API_URL } from './config'
-import { useState, useEffect } from 'react';
+import { API_URL } from './config';
 import './FicheRecette.css';
 import { exporterRecette } from './exportXlsx';
+import { useState, useEffect, useRef } from 'react';
+import { Camera, Pencil, Trash2, Download, Wrench } from 'lucide-react';
 
 function calculerResumeRessources(etapes) {
   const groupes = {};
@@ -41,18 +42,35 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
   const [menuRessource, setMenuRessource] = useState(null);
   const [confirmation, setConfirmation] = useState(null);
 
+  const inputPhotoRef = useRef(null);
+
+  const envoyerPhoto = async (e) => {
+    const fichier = e.target.files[0];
+    if (!fichier) return;
+
+    const donnees = new FormData();
+    donnees.append('photo', fichier);
+
+    const reponse = await fetch(`${API_URL}/recettes/${id}/photo`, {
+      method: 'POST',
+      body: donnees,
+    });
+    const { photo_url } = await reponse.json();
+
+    setRecette((precedent) => ({ ...precedent, photo_url }));
+  };
   useEffect(() => {
     if (!id) return;
 
-    fetch(`${API_URL}/recettes/${id}`)
+    fetch(`http://localhost:3000/recettes/${id}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setRecette(donnees));
 
-    fetch(`${API_URL}/recettes/${id}/etapes`)
+    fetch(`http://localhost:3000/recettes/${id}/etapes`)
       .then((reponse) => reponse.json())
       .then((donnees) => setEtapes(donnees));
 
-    fetch(`${API_URL}/recettes/${id}/calculs`)
+    fetch(`http://localhost:3000/recettes/${id}/calculs`)
       .then((reponse) => reponse.json())
       .then((donnees) => setCalculs(donnees));
   }, [id]);
@@ -78,7 +96,7 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
   }, [menuRessource]);
 
   const ajouterAuProfil = async (ressourceId, ressourceNom) => {
-    await fetch(`${API_URL}/profils/1/ressources`, {
+    await fetch('http://localhost:3000/profils/1/ressources', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ressource_id: ressourceId, quantite: 1 }),
@@ -105,19 +123,44 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
               exporterRecette(recette, resumeIngredients, etapes, calculs)
             }
           >
-            📊 Exporter
+            <Download size={14} strokeWidth={2} /> Exporter
           </button>
-          <button onClick={onModifier}>✏️ Modifier</button>
+          <button onClick={onModifier}>
+            <Pencil size={14} strokeWidth={2} /> Modifier
+          </button>
           <button
             className="bouton-danger"
             onClick={() => onSupprimer(recette.id)}
           >
-            🗑️ Supprimer
+            <Trash2 size={14} strokeWidth={2} /> Supprimer
           </button>
         </div>
       </div>{' '}
       <hr />
-      <div className="photo-placeholder">📷</div>
+      <div
+        className="photo-placeholder"
+        onClick={() => inputPhotoRef.current.click()}
+      >
+        {recette.photo_url ? (
+          <img
+            src={`${API_URL}${recette.photo_url}`}
+            alt={recette.nom}
+            className="photo-recette"
+          />
+        ) : (
+          <>
+            <Camera size={22} strokeWidth={1.5} />
+            <span>Ajouter une photo</span>
+          </>
+        )}
+      </div>
+      <input
+        type="file"
+        accept="image/*"
+        ref={inputPhotoRef}
+        onChange={envoyerPhoto}
+        style={{ display: 'none' }}
+      />{' '}
       {calculs && (
         <div className="grille-metadonnees">
           <div>
@@ -157,7 +200,7 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
         <div className="tags">
           {resumeRessources.map((texte, i) => (
             <span key={i} className="badge badge-ressource">
-              🔧 {texte}
+              <Wrench size={11} strokeWidth={2} /> {texte}
             </span>
           ))}
         </div>
@@ -178,37 +221,27 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
           <li key={etape.id}>
             <p>{etape.description}</p>
             <p className="meta-etape">
-              {etape.composants && etape.composants.length > 0 && (
-                <ul className="ingredients-etape">
-                  {etape.composants.map((c) => (
-                    <li key={c.id}>
-                      {c.nom} — {c.quantite}
-                    </li>
-                  ))}
-                </ul>
-              )}
               Actif {etape.duree_active_min}min
               {etape.delai_attente_min > 0 &&
                 ` · Repos ${etape.delai_attente_min}min`}
             </p>
 
+            {etape.composants && etape.composants.length > 0 && (
+              <ul className="ingredients-etape">
+                {etape.composants.map((c) => (
+                  <li key={c.id}>
+                    {c.nom} — {c.quantite}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             {etape.ressources.length > 0 && (
               <div className="badges-ressources">
                 {etape.ressources.map((ressource) => (
                   // ⬅️ BLOC 3 (modifié) : le badge devient cliquable, remplace l'ancienne version
-                  <span
-                    key={ressource.id}
-                    className="badge badge-ressource badge-cliquable"
-                    onClick={(e) =>
-                      setMenuRessource({
-                        id: ressource.id,
-                        nom: ressource.nom,
-                        x: e.clientX,
-                        y: e.clientY,
-                      })
-                    }
-                  >
-                    🔧 {ressource.nom}
+                  <span key={ressource.id} className="badge badge-ressource">
+                    <Wrench size={11} strokeWidth={2} /> {ressource.nom}
                   </span>
                 ))}
               </div>

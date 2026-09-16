@@ -1,6 +1,7 @@
-import { API_URL } from './config'
 import { useState, useEffect } from 'react';
 import './Planification.css';
+import { Trash2, Pencil, Plus, Minus, X, Download } from 'lucide-react';
+import { exporterPlanning } from './exportXlsx';
 
 function formaterDateHeure(iso) {
   const d = new Date(iso);
@@ -28,7 +29,7 @@ function versDatetimeLocal(iso) {
   )}:${pad(d.getMinutes())}`;
 }
 
-const COULEURS = ['var(--couleur-accent)', 'var(--couleur-succes)', '#b8482a', '#7a5ea8', '#c08a2e'];
+const COULEURS = ['#2952cc', '#2f6b3f', '#b8482a', '#7a5ea8', '#c08a2e'];
 
 function Planification() {
   const [dateCible, setDateCible] = useState('');
@@ -41,13 +42,13 @@ function Planification() {
   const [planningOuvertId, setPlanningOuvertId] = useState(null);
 
   const chargerPlanningsEnregistres = () => {
-    fetch(`${API_URL}/plannings`)
+    fetch('http://localhost:3000/plannings')
       .then((r) => r.json())
       .then(setPlanningsEnregistres);
   };
 
   useEffect(() => {
-    fetch(`${API_URL}/recettes`)
+    fetch('http://localhost:3000/recettes')
       .then((r) => r.json())
       .then(setRecettesDisponibles);
 
@@ -89,7 +90,7 @@ function Planification() {
     recettesPourCourses
   ) => {
     const reponseCalendrier = await fetch(
-      `${API_URL}/plannings/${planningId}/calendrier`
+      `http://localhost:3000/plannings/${planningId}/calendrier`
     );
     const donnees = await reponseCalendrier.json();
     setCalendrier(donnees);
@@ -97,7 +98,7 @@ function Planification() {
     const cumul = {}; // clé = "nom|unite"
     for (const r of recettesPourCourses) {
       const reponse = await fetch(
-        `${API_URL}/recettes/${r.recette_id}/ingredients-agreges?portions=${r.portions_souhaitees}`
+        `http://localhost:3000/recettes/${r.recette_id}/ingredients-agreges?portions=${r.portions_souhaitees}`
       );
       const ingredients = await reponse.json();
 
@@ -126,7 +127,7 @@ function Planification() {
     setListeCourses(null);
     setPlanningOuvertId(null);
 
-    const reponseCreation = await fetch(`${API_URL}/plannings`, {
+    const reponseCreation = await fetch('http://localhost:3000/plannings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -153,7 +154,7 @@ function Planification() {
     setListeCourses(null);
 
     const planning = await fetch(
-      `${API_URL}/plannings/${planningId}`
+      `http://localhost:3000/plannings/${planningId}`
     ).then((r) => r.json());
 
     setDateCible(versDatetimeLocal(planning.date_cible));
@@ -169,7 +170,7 @@ function Planification() {
     e.stopPropagation();
     if (!window.confirm('Supprimer ce repas enregistré ?')) return;
 
-    await fetch(`${API_URL}/plannings/${planningId}`, {
+    await fetch(`http://localhost:3000/plannings/${planningId}`, {
       method: 'DELETE',
     });
     if (planningOuvertId === planningId) {
@@ -217,7 +218,7 @@ function Planification() {
                   className="bouton-supprimer"
                   onClick={(e) => supprimerPlanning(p.id, e)}
                 >
-                  🗑️
+                  <Trash2 size={14} strokeWidth={2} />
                 </button>
               </div>
             ))}
@@ -257,7 +258,9 @@ function Planification() {
                 value={r.portions_souhaitees}
                 onChange={(e) => modifierPortions(r.recette_id, e.target.value)}
               />
-              <button onClick={() => retirerRecette(r.recette_id)}>✕</button>
+              <button onClick={() => retirerRecette(r.recette_id)}>
+                <X size={14} strokeWidth={2} />
+              </button>
             </div>
           </div>
         ))}
@@ -277,7 +280,18 @@ function Planification() {
       {calendrier && (
         <>
           <hr />
-          <h2>Calendrier combiné</h2>
+          <div className="entete-section">
+            <h2>Calendrier combiné</h2>
+            {listeCourses && (
+              <button
+                onClick={() =>
+                  exporterPlanning(dateCible, calendrier, listeCourses)
+                }
+              >
+                <Download size={14} strokeWidth={2} /> Exporter
+              </button>
+            )}
+          </div>
 
           {calendrier.length === 0 && (
             <p className="message-vide">

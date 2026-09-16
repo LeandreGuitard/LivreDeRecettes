@@ -30,6 +30,7 @@ async function initDB() {
       type_id INTEGER,
       portions_base INTEGER,
       description TEXT,
+      photo_url TEXT,
       FOREIGN KEY (type_id) REFERENCES types_recette(id)
     );
 

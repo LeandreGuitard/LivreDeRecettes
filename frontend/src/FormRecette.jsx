@@ -1,6 +1,7 @@
 import { API_URL } from './config'
 import { useState, useEffect, useRef } from 'react';
 import './FormRecette.css';
+import { Trash2, Pencil, Plus, Minus, X, Download } from 'lucide-react';
 
 function FormRecette({ recetteId = null, onEnregistree }) {
   const [nom, setNom] = useState('');
@@ -22,19 +23,19 @@ function FormRecette({ recetteId = null, onEnregistree }) {
   const compteurIdRef = useRef(1);
 
   useEffect(() => {
-    fetch(`${API_URL}/types-recette`)
+    fetch('http://localhost:3000/types-recette')
       .then((r) => r.json())
       .then(setTypes);
-    fetch(`${API_URL}/tags`)
+    fetch('http://localhost:3000/tags')
       .then((r) => r.json())
       .then(setTags);
-    fetch(`${API_URL}/ingredients`)
+    fetch('http://localhost:3000/ingredients')
       .then((r) => r.json())
       .then(setIngredients);
-    fetch(`${API_URL}/recettes`)
+    fetch('http://localhost:3000/recettes')
       .then((r) => r.json())
       .then(setRecettesExistantes);
-    fetch(`${API_URL}/ressources`)
+    fetch('http://localhost:3000/ressources')
       .then((r) => r.json())
       .then(setRessources);
   }, []);
@@ -44,7 +45,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
 
     async function chargerPourEdition() {
       const recette = await fetch(
-        `${API_URL}/recettes/${recetteId}`
+        `http://localhost:3000/recettes/${recetteId}`
       ).then((r) => r.json());
       setNom(recette.nom);
       setTypeId(String(recette.type_id));
@@ -53,7 +54,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
       setTagsSelectionnes(recette.tags.map((t) => t.id));
 
       const etapesApi = await fetch(
-        `${API_URL}/recettes/${recetteId}/etapes`
+        `http://localhost:3000/recettes/${recetteId}/etapes`
       ).then((r) => r.json());
 
       const mapReelVersLocal = {};
@@ -223,7 +224,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
     let idRecette = recetteId;
 
     if (recetteId) {
-      await fetch(`${API_URL}/recettes/${recetteId}`, {
+      await fetch(`http://localhost:3000/recettes/${recetteId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -237,15 +238,15 @@ function FormRecette({ recetteId = null, onEnregistree }) {
 
       // Supprime les anciennes étapes : leurs ingrédients partent automatiquement avec (nettoyage backend)
       const etapesActuelles = await fetch(
-        `${API_URL}/recettes/${recetteId}/etapes`
+        `http://localhost:3000/recettes/${recetteId}/etapes`
       ).then((r) => r.json());
       for (const e2 of etapesActuelles) {
-        await fetch(`${API_URL}/etapes/${e2.id}`, {
+        await fetch(`http://localhost:3000/etapes/${e2.id}`, {
           method: 'DELETE',
         });
       }
     } else {
-      const reponseRecette = await fetch(`${API_URL}/recettes`, {
+      const reponseRecette = await fetch('http://localhost:3000/recettes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -266,7 +267,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
       if (!etape.description || !etape.duree_active_min) continue;
 
       const reponseEtape = await fetch(
-        `${API_URL}/recettes/${idRecette}/etapes`,
+        `http://localhost:3000/recettes/${idRecette}/etapes`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -287,7 +288,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
       // Ingrédients de cette étape
       for (const composant of etape.composants) {
         if (!composant.refId || !composant.quantite) continue;
-        await fetch(`${API_URL}/etapes/${vraiId}/composants`, {
+        await fetch(`http://localhost:3000/etapes/${vraiId}/composants`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -317,7 +318,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
 
       if (depend_de_etapes_id.length === 0) continue;
 
-      await fetch(`${API_URL}/etapes/${vraiId}`, {
+      await fetch(`http://localhost:3000/etapes/${vraiId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ depend_de_etapes_id }),
@@ -444,7 +445,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
                 }
               />
               <button type="button" onClick={() => supprimerEtape(index)}>
-                🗑️
+                <Trash2 size={14} strokeWidth={2} />
               </button>
             </div>
 
@@ -456,7 +457,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
                   type="button"
                   onClick={() => ajouterComposantEtape(index)}
                 >
-                  + Ajouter
+                  <Plus size={14} /> Ajouter
                 </button>
               </div>
 
@@ -526,7 +527,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
                     type="button"
                     onClick={() => supprimerComposantEtape(index, ci)}
                   >
-                    🗑️
+                    <Trash2 size={14} strokeWidth={2} />
                   </button>
                 </div>
               ))}
