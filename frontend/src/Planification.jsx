@@ -1,4 +1,4 @@
-import { API_URL } from './config';
+import { API_URL } from './config'
 import { useState, useEffect } from 'react';
 import './Planification.css';
 import { Trash2, Pencil, Plus, Minus, X, Download } from 'lucide-react';
