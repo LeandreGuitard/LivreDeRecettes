@@ -43,7 +43,7 @@
   gap: 8px;
   margin-bottom: 16px;
   padding: 12px;
-  background-color: #f7f7f7;
+  background-color: var(--couleur-surface);
   border-radius: 8px;
 }
 

@@ -35,7 +35,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background-color: #f7f7f7;
+  background-color: var(--couleur-surface);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -160,19 +160,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background-color: #f7f7f7;
+  background-color: var(--couleur-surface);
   border-radius: 8px;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
 .ligne-planning-enregistre:hover {
-  background-color: #f0f0f0;
+  background-color: var(--couleur-surface-alt);
 }
 
 .ligne-planning-enregistre.actif {
-  border-color: #2952cc;
-  background-color: #eef1fb;
+  border-color: var(--couleur-accent);
+  background-color: var(--couleur-accent-fond-clair);
 }
 
 .date-planning-enregistre {
