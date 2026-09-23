@@ -81,33 +81,16 @@ function Profil({ profilId }) {
           <div key={ressource.id} className="ligne-ressource">
             <span>{ressource.nom}</span>
             <div className="controles-quantite">
-              <button
-                onClick={() =>
-                  modifierQuantite(
-                    ressource.id,
-                    ressource.quantite_disponible - 1
-                  )
-                }
-              >
-                <Minus size={14} strokeWidth={2} />
-              </button>
-              <span>{ressource.quantite_disponible}</span>
-              <button
-                onClick={() =>
-                  modifierQuantite(
-                    ressource.id,
-                    ressource.quantite_disponible + 1
-                  )
-                }
-              >
-                <Plus size={14} strokeWidth={2} />
-              </button>
-              <button
-                className="bouton-supprimer"
-                onClick={() => supprimerRessource(ressource.id)}
-              >
-                <Trash2 size={14} strokeWidth={2} />
-              </button>
+            <button onClick={() => modifierQuantite(ressource.id, ressource.quantite_disponible - 1)}>
+              <Minus size={14} strokeWidth={2} />
+            </button>
+            <span>{ressource.quantite_disponible}</span>
+            <button onClick={() => modifierQuantite(ressource.id, ressource.quantite_disponible + 1)}>
+              <Plus size={14} strokeWidth={2} />
+            </button>
+            <button className="bouton-supprimer" onClick={() => supprimerRessource(ressource.id)}>
+              <Trash2 size={14} strokeWidth={2} />
+            </button>
             </div>
           </div>
         ))}
