@@ -1,20 +1,25 @@
 .menu {
-  width: 220px;
+  width: 240px;
   height: 100vh;
   background-color: var(--couleur-menu-fond);
-  padding: 16px;
+  padding: 18px 14px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   overflow-y: auto;
+  border-right: 1px solid var(--couleur-bordure);
 }
+
 .menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background: none;
   border: none;
   text-align: left;
-  padding: 8px 10px;
-  border-radius: 6px;
+  padding: 9px 10px;
+  border-radius: var(--rayon-petit);
   font-size: 14px;
   cursor: pointer;
   color: var(--couleur-texte);
@@ -22,49 +27,87 @@
 
 .menu button:hover {
   background-color: var(--couleur-menu-survol);
+  border-color: transparent;
 }
 
 .menu hr {
   border: none;
-  border-top: 1px solid #c0c0c0;
-  margin: 8px 0;
+  border-top: 1px solid var(--couleur-bordure-forte);
+  margin: 10px 0;
 }
 
 .bouton-profil {
-  font-weight: 500;
+  font-family: var(--police-titre);
+  font-weight: 600;
+  font-size: 15px !important;
 }
 
 .groupe-type {
-  margin-top: 12px;
+  margin-top: 6px;
+}
+
+.entete-type {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 6px 10px 4px;
 }
 
 .titre-type {
+  margin: 0;
   font-size: 11px;
-  color: var(--couleur-texte-attenue);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin: 4px 0;
+  color: var(--couleur-texte-attenue);
+}
+
+.ligne-recette {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ligne-recette .item-recette {
+  flex: 1;
+}
+
+.chevron-icone {
+  color: var(--couleur-texte-attenue);
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+
+.chevron-icone.ouvert {
+  transform: rotate(90deg);
+}
+
+.chevron-recette {
+  cursor: pointer;
+}
+
+.chevron-espace {
+  display: inline-block;
+  width: 14px;
+  flex-shrink: 0;
 }
 
 .item-recette {
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 7px 10px;
+  border-radius: var(--rayon-petit);
   cursor: pointer;
   font-size: 14px;
+  border-left: 3px solid transparent;
 }
 
 .item-recette:hover {
   background-color: var(--couleur-menu-survol);
+  border-left-color: var(--couleur-accent);
 }
 
 .item-sous-recette {
   padding-left: 24px;
   color: var(--couleur-texte-secondaire);
   font-size: 13px;
-}
-
-.chevron {
-  display: inline-block;
-  width: 14px;
-  font-size: 10px;
-  color: var(--couleur-texte-attenue);
 }
