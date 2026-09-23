@@ -34,15 +34,16 @@
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 6px;
-  border: 1px solid #ddd;
-  background: white;
+  border: 1px solid var(--couleur-bordure);
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
   cursor: pointer;
 }
 
 .badge-choix.actif {
-  background-color: #2952cc;
-  color: white;
-  border-color: #2952cc;
+  background-color: var(--couleur-accent);
+  color: var(--couleur-accent-texte);
+  border-color: var(--couleur-accent);
 }
 
 .ligne-composant {

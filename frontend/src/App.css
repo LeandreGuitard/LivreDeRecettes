@@ -4,13 +4,6 @@
   overflow: hidden;
 }
 
-.menu {
-  width: 220px;
-  background-color: #dcdcdc;
-  padding: 16px;
-  box-sizing: border-box;
-}
-
 .contenu-principal {
   flex: 1;
   padding: 24px;
