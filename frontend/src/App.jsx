@@ -32,7 +32,7 @@ function App() {
 
   const supprimerRecette = async (id) => {
     if (!window.confirm('Supprimer définitivement cette recette ?')) return;
-    await fetch(`http://localhost:3000/recettes/${id}`, { method: 'DELETE' });
+    await fetch(`${API_URL}/recettes/${id}`, { method: 'DELETE' });
     setCleRafraichissement((precedent) => precedent + 1);
     setRecetteSelectionneeId(null);
     setVue('recette');

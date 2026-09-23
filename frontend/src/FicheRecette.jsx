@@ -62,15 +62,15 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:3000/recettes/${id}`)
+    fetch(`${API_URL}/recettes/${id}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setRecette(donnees));
 
-    fetch(`http://localhost:3000/recettes/${id}/etapes`)
+    fetch(`${API_URL}/recettes/${id}/etapes`)
       .then((reponse) => reponse.json())
       .then((donnees) => setEtapes(donnees));
 
-    fetch(`http://localhost:3000/recettes/${id}/calculs`)
+    fetch(`${API_URL}/recettes/${id}/calculs`)
       .then((reponse) => reponse.json())
       .then((donnees) => setCalculs(donnees));
   }, [id]);
@@ -96,7 +96,7 @@ function FicheRecette({ id, onModifier, onSupprimer }) {
   }, [menuRessource]);
 
   const ajouterAuProfil = async (ressourceId, ressourceNom) => {
-    await fetch('http://localhost:3000/profils/1/ressources', {
+    await fetch(`${API_URL}/profils/1/ressources`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ressource_id: ressourceId, quantite: 1 }),

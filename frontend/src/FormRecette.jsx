@@ -23,19 +23,19 @@ function FormRecette({ recetteId = null, onEnregistree }) {
   const compteurIdRef = useRef(1);
 
   useEffect(() => {
-    fetch('http://localhost:3000/types-recette')
+    fetch(`${API_URL}/types-recette`)
       .then((r) => r.json())
       .then(setTypes);
-    fetch('http://localhost:3000/tags')
+    fetch(`${API_URL}/tags`)
       .then((r) => r.json())
       .then(setTags);
-    fetch('http://localhost:3000/ingredients')
+    fetch(`${API_URL}/ingredients`)
       .then((r) => r.json())
       .then(setIngredients);
-    fetch('http://localhost:3000/recettes')
+    fetch(`${API_URL}/recettes`)
       .then((r) => r.json())
       .then(setRecettesExistantes);
-    fetch('http://localhost:3000/ressources')
+    fetch(`${API_URL}/ressources`)
       .then((r) => r.json())
       .then(setRessources);
   }, []);
@@ -45,7 +45,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
 
     async function chargerPourEdition() {
       const recette = await fetch(
-        `http://localhost:3000/recettes/${recetteId}`
+        `${API_URL}/recettes/${recetteId}`
       ).then((r) => r.json());
       setNom(recette.nom);
       setTypeId(String(recette.type_id));
@@ -54,7 +54,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
       setTagsSelectionnes(recette.tags.map((t) => t.id));
 
       const etapesApi = await fetch(
-        `http://localhost:3000/recettes/${recetteId}/etapes`
+        `${API_URL}/recettes/${recetteId}/etapes`
       ).then((r) => r.json());
 
       const mapReelVersLocal = {};
@@ -224,7 +224,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
     let idRecette = recetteId;
 
     if (recetteId) {
-      await fetch(`http://localhost:3000/recettes/${recetteId}`, {
+      await fetch(`${API_URL}/recettes/${recetteId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -238,15 +238,15 @@ function FormRecette({ recetteId = null, onEnregistree }) {
 
       // Supprime les anciennes étapes : leurs ingrédients partent automatiquement avec (nettoyage backend)
       const etapesActuelles = await fetch(
-        `http://localhost:3000/recettes/${recetteId}/etapes`
+        `${API_URL}/recettes/${recetteId}/etapes`
       ).then((r) => r.json());
       for (const e2 of etapesActuelles) {
-        await fetch(`http://localhost:3000/etapes/${e2.id}`, {
+        await fetch(`${API_URL}/etapes/${e2.id}`, {
           method: 'DELETE',
         });
       }
     } else {
-      const reponseRecette = await fetch('http://localhost:3000/recettes', {
+      const reponseRecette = await fetch(`${API_URL}/recettes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -267,7 +267,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
       if (!etape.description || !etape.duree_active_min) continue;
 
       const reponseEtape = await fetch(
-        `http://localhost:3000/recettes/${idRecette}/etapes`,
+        `${API_URL}/recettes/${idRecette}/etapes`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -288,7 +288,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
       // Ingrédients de cette étape
       for (const composant of etape.composants) {
         if (!composant.refId || !composant.quantite) continue;
-        await fetch(`http://localhost:3000/etapes/${vraiId}/composants`, {
+        await fetch(`${API_URL}/etapes/${vraiId}/composants`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -318,7 +318,7 @@ function FormRecette({ recetteId = null, onEnregistree }) {
 
       if (depend_de_etapes_id.length === 0) continue;
 
-      await fetch(`http://localhost:3000/etapes/${vraiId}`, {
+      await fetch(`${API_URL}/etapes/${vraiId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ depend_de_etapes_id }),

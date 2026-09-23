@@ -13,14 +13,14 @@ function GestionIngredients() {
   const [lieuxSelectionnes, setLieuxSelectionnes] = useState([]);
 
   const charger = () => {
-    fetch('http://localhost:3000/ingredients')
+    fetch(`${API_URL}/ingredients`)
       .then((r) => r.json())
       .then(setIngredients);
   };
 
   useEffect(() => {
     charger();
-    fetch('http://localhost:3000/lieux-achat')
+    fetch(`${API_URL}/lieux-achat`)
       .then((r) => r.json())
       .then(setLieuxAchat);
   }, []);
@@ -61,13 +61,13 @@ function GestionIngredients() {
     };
 
     if (editingId) {
-      await fetch(`http://localhost:3000/ingredients/${editingId}`, {
+      await fetch(`${API_URL}/ingredients/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(corps),
       });
     } else {
-      await fetch('http://localhost:3000/ingredients', {
+      await fetch(`${API_URL}/ingredients`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(corps),
@@ -80,7 +80,7 @@ function GestionIngredients() {
 
   const supprimer = async (id) => {
     if (!window.confirm('Supprimer cet ingrédient ?')) return;
-    await fetch(`http://localhost:3000/ingredients/${id}`, {
+    await fetch(`${API_URL}/ingredients/${id}`, {
       method: 'DELETE',
     });
     charger();

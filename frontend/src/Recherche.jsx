@@ -14,13 +14,13 @@ function Recherche({ onSelectionnerRecette }) {
   const [resultats, setResultats] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/types-recette')
+    fetch(`${API_URL}/types-recette`)
       .then((r) => r.json())
       .then(setTypes);
-    fetch('http://localhost:3000/tags')
+    fetch(`${API_URL}/tags`)
       .then((r) => r.json())
       .then(setTags);
-    fetch('http://localhost:3000/ingredients')
+    fetch(`${API_URL}/ingredients`)
       .then((r) => r.json())
       .then(setIngredients);
   }, []);
@@ -32,7 +32,7 @@ function Recherche({ onSelectionnerRecette }) {
     if (tagId) params.set('tag_id', tagId);
     if (ingredientId) params.set('ingredient_id', ingredientId);
 
-    fetch(`http://localhost:3000/recherche/recettes?${params.toString()}`)
+    fetch(`${API_URL}/recherche/recettes?${params.toString()}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setResultats(donnees));
   }, [texte, typeId, tagId, ingredientId]);

@@ -7,7 +7,7 @@ function ListeSimple({ titre, endpoint }) {
   const [nouveauNom, setNouveauNom] = useState('');
 
   const charger = () => {
-    fetch(`http://localhost:3000/${endpoint}`)
+    fetch(`${API_URL}/${endpoint}`)
       .then((reponse) => reponse.json())
       .then((donnees) => setElements(donnees));
   };
@@ -20,7 +20,7 @@ function ListeSimple({ titre, endpoint }) {
     e.preventDefault();
     if (!nouveauNom.trim()) return;
 
-    await fetch(`http://localhost:3000/${endpoint}`, {
+    await fetch(`${API_URL}/${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nom: nouveauNom }),
@@ -30,7 +30,7 @@ function ListeSimple({ titre, endpoint }) {
   };
 
   const supprimer = async (id) => {
-    await fetch(`http://localhost:3000/${endpoint}/${id}`, {
+    await fetch(`${API_URL}/${endpoint}/${id}`, {
       method: 'DELETE',
     });
     charger();
