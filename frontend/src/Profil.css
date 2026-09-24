@@ -32,6 +32,10 @@
 .controles-quantite button {
   width: 26px;
   height: 26px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--couleur-bordure);
   background: var(--couleur-fond);
   color: var(--couleur-texte);
