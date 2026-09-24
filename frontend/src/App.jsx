@@ -1,5 +1,5 @@
 import { API_URL } from './config';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'
 import Menu from './Menu';
 import FicheRecette from './FicheRecette';
 import Profil from './Profil';
