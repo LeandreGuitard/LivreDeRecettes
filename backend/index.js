@@ -1337,6 +1337,31 @@ app.get('/recherche/recettes', (req, res) => {
   res.json(recettes);
 });
 
+app.post('/profils', (req, res) => {
+  const db = getDB();
+  const { nom } = req.body;
+  db.run('INSERT INTO profils_equipement (nom, est_par_defaut) VALUES (?, 0)', [nom]);
+  const nouvelId = db.exec('SELECT last_insert_rowid()')[0].values[0][0];
+  sauvegarder();
+  res.status(201).json({ message: 'Profil créé', id: nouvelId });
+});
+
+app.put('/profils/:id', (req, res) => {
+  const db = getDB();
+  db.run('UPDATE profils_equipement SET nom = ? WHERE id = ?', [req.body.nom, req.params.id]);
+  sauvegarder();
+  res.json({ message: 'Profil modifié' });
+});
+
+app.delete('/profils/:id', (req, res) => {
+  const db = getDB();
+  const id = req.params.id;
+  db.run('DELETE FROM profil_ressources WHERE profil_id = ?', [id]);
+  db.run('DELETE FROM profils_equipement WHERE id = ?', [id]);
+  sauvegarder();
+  res.status(204).send();
+});
+
 // ---------- DEMARRAGE ----------
 
 async function demarrer() {

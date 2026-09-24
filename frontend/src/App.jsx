@@ -38,6 +38,22 @@ function App() {
     setVue('recette');
   };
 
+  const [profilActifId, setProfilActifId] = useState(() => {
+    const sauvegarde = localStorage.getItem('profilActifId')
+    return sauvegarde ? Number(sauvegarde) : 1
+  })
+  const [profils, setProfils] = useState([])
+  
+  useEffect(() => {
+    localStorage.setItem('profilActifId', profilActifId)
+  }, [profilActifId])
+  
+  useEffect(() => {
+    fetch(`${API_URL}/profils`).then(r => r.json()).then(setProfils)
+  }, [vue])
+  
+  const nomProfilActif = profils.find(p => p.id === profilActifId)?.nom || 'Profil'
+
   return (
     <div className="app">
       <Menu
@@ -45,9 +61,10 @@ function App() {
         onOuvrirProfil={() => setVue('profil')}
         onOuvrirRecherche={() => setVue('recherche')}
         onOuvrirFormRecette={() => setVue('nouvelle-recette')}
-        cleRafraichissement={cleRafraichissement}
         onOuvrirPlanification={() => setVue('planification')}
-      />
+        cleRafraichissement={cleRafraichissement}
+        nomProfilActif={nomProfilActif}
+/>
 
       <main className="contenu-principal">
         <button className="bouton-reglages" onClick={() => setVue('reglages')}>
@@ -61,7 +78,7 @@ function App() {
             onSupprimer={supprimerRecette}
           />
         )}
-        {vue === 'profil' && <Profil profilId={1} />}
+        {vue === 'profil' && <Profil profilId={profilActifId} onChangerProfil={setProfilActifId} />}
         {vue === 'reglages' && <Reglages />}
         {vue === 'recherche' && (
           <Recherche onSelectionnerRecette={selectionnerRecette} />

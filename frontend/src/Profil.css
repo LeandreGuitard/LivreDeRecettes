@@ -49,3 +49,58 @@
   cursor: pointer;
   margin-left: 8px;
 }
+.aide-profil {
+  font-size: 13px;
+  color: var(--couleur-texte-secondaire);
+  margin: 8px 0 16px;
+}
+
+.liste-profils {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chip-profil {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--couleur-bordure);
+  background: var(--couleur-fond);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.chip-profil.actif {
+  border-color: var(--couleur-accent);
+  background: var(--couleur-accent-fond-clair);
+  color: var(--couleur-accent);
+}
+
+.chip-profil svg {
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.chip-profil svg:hover {
+  opacity: 1;
+}
+
+.chip-profil input {
+  padding: 2px 6px;
+  font-size: 13px;
+  width: 140px;
+}
+
+.form-nouveau-profil {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-nouveau-profil input {
+  flex: 1;
+}

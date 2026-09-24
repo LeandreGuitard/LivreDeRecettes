@@ -3,14 +3,7 @@ import { API_URL } from './config';
 import { ChefHat, Plus, Search, Calendar, ChevronRight } from 'lucide-react';
 import './Menu.css';
 
-function Menu({
-  onSelectionnerRecette,
-  onOuvrirProfil,
-  onOuvrirRecherche,
-  onOuvrirFormRecette,
-  onOuvrirPlanification,
-  cleRafraichissement,
-}) {
+function Menu({ onSelectionnerRecette, onOuvrirProfil, onOuvrirRecherche, onOuvrirFormRecette, onOuvrirPlanification, cleRafraichissement, nomProfilActif }) {
   const [recettes, setRecettes] = useState([]);
   const [sousRecettes, setSousRecettes] = useState({});
   const [ouverts, setOuverts] = useState({});
@@ -61,9 +54,9 @@ function Menu({
   return (
     <aside className="menu">
       <button className="bouton-profil" onClick={onOuvrirProfil}>
-        <ChefHat size={18} strokeWidth={1.75} />
-        <span>Cuisine maison</span>
-      </button>
+  <ChefHat size={18} strokeWidth={1.75} />
+  <span>{nomProfilActif}</span>
+</button>
 
       <hr />
 
